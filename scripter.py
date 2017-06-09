@@ -5,37 +5,37 @@ import os
 cwd = os.path.dirname(os.path.realpath(__file__))
 
 
-def __terminal_script(pokemon):
+def __terminal_script(anime):
     # Create the content for script that will change the terminal background image.
     content = "tell application \"iTerm\"\n"
     content += "\ttell current session of current window\n"
-    content += "\t\tset background image to \"" + pokemon.get_path() + "\"\n"
+    content += "\t\tset background image to \"" + anime.get_path() + "\"\n"
     content += "\tend tell\n"
     content += "end tell"
     return content
 
 
-def __wallpaper_script(pokemon):
+def __wallpaper_script(anime):
     # Create the content for the script that will change the wallpaper.
     content = "tell application \"System Events\"\n"
     content += "\ttell current desktop\n"
-    content += "\t\tset picture to \"" + pokemon.get_path() + "\"\n"
+    content += "\t\tset picture to \"" + anime.get_path() + "\"\n"
     content += "\tend tell\n"
     content += "end tell"
     return content
 
 
-def __create_terminal_script(pokemon):
+def __create_terminal_script(anime):
     # Create and save the script for changing the terminal background image.
-    content = __terminal_script(pokemon)
+    content = __terminal_script(anime)
     file = open(cwd + "/./Scripts/background.scpt", "wb")
     file.write(bytes(content, 'UTF-8'))
     file.close()
 
 
-def __create_wallpaper_script(pokemon):
+def __create_wallpaper_script(anime):
     # Create and save the script for changing the wallpaper.
-    content = __wallpaper_script(pokemon)
+    content = __wallpaper_script(anime)
     file = open(cwd + "/./Scripts/wallpaper.scpt", "wb")
     file.write(bytes(content, 'UTF-8'))
     file.close()
@@ -61,32 +61,32 @@ def __create_wallpaper_bash():
     file.close()
 
 
-def change_terminal(pokemon):
+def change_terminal(anime):
     # Create, save and run the bash script to change the terminal background.
-    __create_terminal_script(pokemon)
+    __create_terminal_script(anime)
     __create_terminal_bash()
     os.system(cwd + "/./Scripts/run.sh")
 
 
-def change_wallpaper(pokemon):
+def change_wallpaper(anime):
     # Create, save and run the bash script to change the wallpaper.
-    __create_wallpaper_script(pokemon)
+    __create_wallpaper_script(anime)
     __create_wallpaper_bash()
     os.system(cwd + "/./Scripts/run.sh")
 
 
-def determine_terminal_pokemon(db):
-    # Print the current Pokemon that is being used as the terminal background.
-    __determine_pokemon(db, "background.scpt")
+def determine_terminal_anime(db):
+    # Print the current Anime that is being used as the terminal background.
+    __determine_anime(db, "background.scpt")
 
 
-def determine_wallpaper_pokemon(db):
-    # Print the current Pokemon that is being used the wallpaper.
-    __determine_pokemon(db, "wallpaper.scpt")
+def determine_wallpaper_anime(db):
+    # Print the current Anime that is being used the wallpaper.
+    __determine_anime(db, "wallpaper.scpt")
 
 
-def __determine_pokemon(db, script_name):
-    # Helper method to get the current Pokemon that is in the specified script.
+def __determine_anime(db, script_name):
+    # Helper method to get the current Anime that is in the specified script.
     path = cwd + "/Scripts/" + script_name
     try:
         content = open(path, "r+").readlines()
@@ -102,5 +102,5 @@ def __determine_pokemon(db, script_name):
         print("Corrupt file:", path)
         return
 
-    pokemon = db.get_pokemon(image_name)
-    print(pokemon.get_id(), pokemon.get_name().capitalize())
+    anime = db.get_anime(image_name)
+    print(anime.get_id(), anime.get_name().capitalize())

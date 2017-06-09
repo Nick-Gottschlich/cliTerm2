@@ -10,7 +10,7 @@ import time
 
 
 def print_list(list_of_items):
-    # Print all the items in a list. Used for printing each Pokemon from a particular region.
+    # Print all the items in a list. Used for printing each Anime from a particular region.
     for item in list_of_items:
         print(item)
 
@@ -21,12 +21,12 @@ def print_columns(items):
     items_per_column = int(len(items) / 4) + 1
 
     for index in range(0, len(items)):
-        pokemon = items[index]
+        anime = items[index]
 
-        if not pokemon.is_extra():
-            name = pokemon.get_id() + " " + str(pokemon.get_name()).capitalize()
+        if not anime.is_extra():
+            name = anime.get_id() + " " + str(anime.get_name()).capitalize()
         else:
-            name = "--- " + pokemon.get_name()
+            name = "--- " + anime.get_name()
 
         name = name.ljust(20)
 
@@ -39,19 +39,19 @@ def print_columns(items):
 
 
 def prefix_search(db, arg):
-    # Find all Pokemon in database, db, with the prefix, arg.
+    # Find all Anime in database, db, with the prefix, arg.
     result = db.names_with_prefix(arg)
     if len(result) == 0:
-        print("No Pokemon found with prefix '" + arg + "'.")
+        print("No Anime found with prefix '" + arg + "'.")
     else:
         print_columns(result)
 
 
 def print_extra(db):
-    # Print all the 'Extra' Pokemon from the 'Extra' folder.
+    # Print all the 'Extra' Anime from the 'Extra' folder.
     result = db.get_extra()
     if len(result) == 0:
-        print("No Pokemon were found in Images/Extra.")
+        print("No Anime were found in Images/Extra.")
     else:
         print_columns(result)
 
@@ -61,38 +61,34 @@ def print_usage():
     print(
         '''
 Usage:
-    pokemon [parameter]
+    anime [parameter]
 
 Parameters:
-    [name]        -   Change the terminal background to the specified Pokemon.
-    [index]       -   Change the terminal background to a Pokemon by its index.
-    [region]      -   List all the Pokemon of the specified region.
-    [one letter]  -   List all Pokemon who's names begin with a particular letter.
-    [two letters] -   List all Pokemon who's names begin with those two letters.
+    [name]        -   Change the terminal background to the specified Anime.
+    [index]       -   Change the terminal background to a Anime by its index.
+    [region]      -   List all the Anime of the specified region.
+    [one letter]  -   List all Anime who's names begin with a particular letter.
+    [two letters] -   List all Anime who's names begin with those two letters.
 
 Other Parameters:
-    pokemon all             -   List all the Pokemon supported.
-    pokemon regions         -   List all the available regions.
-    pokemon extra           -   List all the Pokemon from the 'Extra' folder.
-    pokemon random          -   Change the terminal background to a random Pokemon.
-    pokemon random-kanto    -   Change the terminal background to a random Pokemon from the specified region.
-    pokemon ?               -   Identify the current Pokemon in the terminal.
-    pokemon _pikachu        -   Change the wallpaper to the specified Pokemon.
-    pokemon _random         -   Change the wallpaper to a random Pokemon.
-    pokemon _random-kanto   -   Change the wallpaper to a random Pokemon from the specified region.
-    pokemon _?              -   Identify the current Pokemon in the wallpaper.
-    pokemon slideshow       -   Iterate through each Pokemon.
-    pokemon slideshow-kanto -   Iterate through each Pokemon in the specified region.
-    pokemon help            -   Display this menu.
+    anime all             -   List all the Anime supported.
+    anime extra           -   List all the Anime from the 'Extra' folder.
+    anime random          -   Change the terminal background to a random Anime.
+    anime ?               -   Identify the current Anime in the terminal.
+    anime _pikachu        -   Change the wallpaper to the specified Anime.
+    anime _random         -   Change the wallpaper to a random Anime.
+    anime _?              -   Identify the current Anime in the wallpaper.
+    anime slideshow       -   Iterate through each Anime.
+    anime help            -   Display this menu.
 ''')
 
 
 def slideshow(db, start, end):
-    # Show each Pokemon in order, one by one.
+    # Show each Anime in order, one by one.
     try:
         for x in range(start, end):
-            pokemon = db.get_pokemon(x)
-            scripter.change_terminal(pokemon)
+            anime = db.get_anime(x)
+            scripter.change_terminal(anime)
             time.sleep(0.25)
     except KeyboardInterrupt:
         print("Program was terminated.")
@@ -100,14 +96,14 @@ def slideshow(db, start, end):
 
 
 def change_terminal_background(db, arg):
-    # Change the terminal background to the specified Pokemon, if it exists.
+    # Change the terminal background to the specified Anime, if it exists.
     if arg in db:
-        pokemon = db.get_pokemon(arg)
-        scripter.change_terminal(pokemon)
+        anime = db.get_anime(arg)
+        scripter.change_terminal(anime)
     else:  # If not found in the database, try to give suggestions.
         suggestions = db.names_with_infix(arg)
         if len(suggestions) == 0:
-            print("No such Pokemon was found and no suggestions are available.")
+            print("No such Anime was found and no suggestions are available.")
         elif len(suggestions) == 1:
             scripter.change_terminal(suggestions[0])
             print("Did you mean " + suggestions[0].get_name().capitalize() + "?")
@@ -120,14 +116,14 @@ def change_terminal_background(db, arg):
 
 
 def change_wallpaper(db, arg):
-    # Change the wallpaper to the specified Pokemon, if it exists.
+    # Change the wallpaper to the specified Anime, if it exists.
     if arg in db:
-        pokemon = db.get_pokemon(arg)
-        scripter.change_wallpaper(pokemon)
+        anime = db.get_anime(arg)
+        scripter.change_wallpaper(anime)
     else:  # If not found in the database, try to give suggestions.
         suggestions = db.names_with_infix(arg)
         if len(suggestions) == 0:
-            print("No such Pokemon was found and no suggestions are available.")
+            print("No such Anime was found and no suggestions are available.")
         elif len(suggestions) == 1:
             scripter.change_wallpaper(suggestions[0])
             print("Did you mean " + suggestions[0].get_name().capitalize() + "?")
@@ -155,54 +151,18 @@ def single_argument_handler(arg):
         prefix_search(db, arg)
     elif arg == "extra":
         print_extra(db)
-    elif arg == "regions":
-        print_list(db.get_regions())
     elif arg == "help":
         print_usage()
-    elif arg == "kanto":
-        print_columns(db.get_kanto())
-    elif arg == "johto":
-        print_columns(db.get_johto())
-    elif arg == "hoenn":
-        print_columns(db.get_hoenn())
-    elif arg == "sinnoh":
-        print_columns(db.get_sinnoh())
-    elif arg == "all":
-        print_columns(db.get_all())
     elif arg == "random" and escape_code:
         change_wallpaper(db, db.get_random().get_name())
-    elif arg == "random-kanto" and escape_code:
-        change_wallpaper(db, db.get_random_from_region("kanto").get_name())
-    elif arg == "random-johto" and escape_code:
-        change_wallpaper(db, db.get_random_from_region("johto").get_name())
-    elif arg == "random-hoenn" and escape_code:
-        change_wallpaper(db, db.get_random_from_region("hoenn").get_name())
-    elif arg == "random-sinnoh" and escape_code:
-        change_wallpaper(db, db.get_random_from_region("sinnoh").get_name())
     elif arg == "random":
         change_terminal_background(db, db.get_random().get_name())
-    elif arg == "random-kanto":
-        change_terminal_background(db, db.get_random_from_region("kanto").get_name())
-    elif arg == "random-johto":
-        change_terminal_background(db, db.get_random_from_region("johto").get_name())
-    elif arg == "random-hoenn":
-        change_terminal_background(db, db.get_random_from_region("hoenn").get_name())
-    elif arg == "random-sinnoh":
-        change_terminal_background(db, db.get_random_from_region("sinnoh").get_name())
     elif arg == "slideshow":
         slideshow(db, 1, 494)
-    elif arg == "slideshow-kanto":
-        slideshow(db, 1, 152)
-    elif arg == "slideshow-johto":
-        slideshow(db, 152, 252)
-    elif arg == "slideshow-hoenn":
-        slideshow(db, 252, 387)
-    elif arg == "slideshow-sinnoh":
-        slideshow(db, 387, 494)
     elif arg == "?" and escape_code:
-        scripter.determine_wallpaper_pokemon(db)
+        scripter.determine_wallpaper_anime(db)
     elif arg == "?":
-        scripter.determine_terminal_pokemon(db)
+        scripter.determine_terminal_anime(db)
     elif escape_code:
         change_wallpaper(db, arg)
     else:
@@ -213,7 +173,7 @@ if __name__ == "__main__":
     # Entrance to the program.
     if len(argv) == 1:
         print("No command line arguments specified."
-              "\nTry typing in a Pokemon name or number."
+              "\nTry typing in a Anime name or number."
               "\nOr type \"help\" to see all the commands.")
     elif len(argv) == 2:
         single_argument_handler(argv[1].lower())
