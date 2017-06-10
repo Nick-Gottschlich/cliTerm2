@@ -122,9 +122,11 @@ def change_terminal_background(db, arg):
     print(arg)
 
     #okay so this succesfully goes to a subreddit
-    for submission in reddit.subreddit(arg).hot(limit=10):
+    for submission in reddit.subreddit(arg).top('week', limit=10):
         print(submission.title)
-    print(reddit.subreddit(arg).hot)
+    # print(reddit.subreddit(arg).random())
+    # print(reddit.subreddit(arg).random().title)
+    # print(reddit.subreddit(arg).random().url)
 
 
 
