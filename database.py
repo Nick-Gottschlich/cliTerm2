@@ -42,7 +42,7 @@ class Database:
         return string[:-1]  # Remove the final new line ("\n").
 
     def __contains__(self, anime):
-        # Check for a anime by ID or name.
+        # Check for a Anime by ID or name.
         if type(anime) is int or str(anime).isdigit():
             return self.anime_id_exists(anime)
         else:
@@ -52,19 +52,19 @@ class Database:
         return len(self.__anime_list)
 
     def get_all(self):
-        # Get all the anime.
+        # Get all the Anime.
         result = []
         for anime in self.__anime_list:
             result.append(anime)
         return result
 
     def get_random(self):
-        # Select a random anime from the database.
+        # Select a random Anime from the database.
         random_int = random.randint(0, len(self.__anime_list) - 1)
         return self.__anime_list[random_int]
 
     def anime_id_exists(self, identifier):
-        # Check for anime by ID.
+        # Check for Anime by ID.
         identifier = int(identifier)
         # will need to change this to have a proper max
         if identifier < 1 or identifier > 1:
@@ -73,11 +73,11 @@ class Database:
             return True
 
     def anime_name_exists(self, name):
-        # Check for anime by Name.
+        # Check for Anime by Name.
         return name.lower() in self.__anime_dictionary
 
     def get_anime(self, anime):
-        # Get a anime by name or ID.
+        # Get a Anime by name or ID.
         if type(anime) is not int and type(anime) is not str:
             raise Exception("The parameter anime must be of type integer or string.")
         if not self.__contains__(anime):
@@ -88,7 +88,7 @@ class Database:
             return self.get_anime_by_name(anime)
 
     def get_anime_by_name(self, name):
-        # Get a anime by its name.
+        # Get a Anime by its name.
         if type(name) is not str:
             raise TypeError("The type of name must be a string.")
         if not self.anime_name_exists(name):
@@ -96,7 +96,7 @@ class Database:
         return self.__anime_dictionary[name]
 
     def get_anime_by_id(self, identifier):
-        # Get a anime by its ID.
+        # Get a Anime by its ID.
         if type(identifier) is not int and not str(identifier).isdigit():
             raise TypeError("The anime ID must be a number.")
         if not self.anime_id_exists(identifier):
@@ -104,7 +104,7 @@ class Database:
         return self.__anime_list[int(identifier) - 1]  # Subtract 1 to convert to 0 base indexing.
 
     def names_with_prefix(self, prefix):
-        # Return anime who's names begin with the specified prefix.
+        # Return Anime who's names begin with the specified prefix.
         result = []
         for anime in self.__anime_list:
             if str(anime.get_name()).startswith(prefix):
@@ -112,7 +112,7 @@ class Database:
         return result
 
     def names_with_infix(self, infix):
-        # Return anime who's names contains the specified infix.
+        # Return Anime who's names contains the specified infix.
         result = []
         for anime in self.__anime_list:
             if infix in str(anime.get_name()):
@@ -120,7 +120,7 @@ class Database:
         return result
 
     def __load_data(self):
-        # Load all the anime data.
+        # Load all the Anime data.
         path = "/./Data/anime.txt"
         data_file = open(self.directory + path, 'r')
         for line in data_file:  # Load everything

@@ -7,7 +7,13 @@ from database import Database
 import scripter
 import sys
 import time
+import praw
 
+reddit = praw.Reddit(
+    client_id='UL0uO_5lz8bSeg',
+    client_secret='uG2Z5JZcqrSN-GVzcnjwGCuAolE',
+    user_agent='mac:terminal-background:v0.0.1 (by /u/JavaOffScript)'
+)
 
 def print_list(list_of_items):
     # Print all the items in a list. Used for printing each Anime from a particular region.
@@ -97,22 +103,29 @@ def slideshow(db, start, end):
 
 def change_terminal_background(db, arg):
     # Change the terminal background to the specified Anime, if it exists.
-    if arg in db:
-        anime = db.get_anime(arg)
-        scripter.change_terminal(anime)
-    else:  # If not found in the database, try to give suggestions.
-        suggestions = db.names_with_infix(arg)
-        if len(suggestions) == 0:
-            print("No such Anime was found and no suggestions are available.")
-        elif len(suggestions) == 1:
-            scripter.change_terminal(suggestions[0])
-            print("Did you mean " + suggestions[0].get_name().capitalize() + "?")
-            scripter.change_terminal(suggestions[0])
-        else:
-            print("Did you mean " + suggestions[0].get_name().capitalize() + "?")
-            print("Other suggestions:")
-            print_columns(suggestions[1:])
-            scripter.change_terminal(suggestions[0])
+    # if arg in db:
+    #     anime = db.get_anime(arg)
+    #     scripter.change_terminal(anime)
+    # else:  # If not found in the database, try to give suggestions.
+    #     suggestions = db.names_with_infix(arg)
+    #     if len(suggestions) == 0:
+    #         print("No such Anime was found and no suggestions are available.")
+    #     elif len(suggestions) == 1:
+    #         scripter.change_terminal(suggestions[0])
+    #         print("Did you mean " + suggestions[0].get_name().capitalize() + "?")
+    #         scripter.change_terminal(suggestions[0])
+    #     else:
+    #         print("Did you mean " + suggestions[0].get_name().capitalize() + "?")
+    #         print("Other suggestions:")
+    #         print_columns(suggestions[1:])
+    #         scripter.change_terminal(suggestions[0])
+    print(arg)
+
+    #okay so this succesfully goes to a subreddit
+    for submission in reddit.subreddit(arg).hot(limit=10):
+        print(submission.title)
+    print(reddit.subreddit(arg).hot)
+
 
 
 def change_wallpaper(db, arg):
