@@ -8,11 +8,13 @@ import scripter
 import sys
 import time
 import praw
+import random
+import requests
 
 reddit = praw.Reddit(
     client_id='UL0uO_5lz8bSeg',
     client_secret='uG2Z5JZcqrSN-GVzcnjwGCuAolE',
-    user_agent='mac:terminal-background:v0.0.1 (by /u/JavaOffScript)'
+    user_agent='mac:iterm2-background:v0.0.1 (by /u/JavaOffScript)'
 )
 
 def print_list(list_of_items):
@@ -101,6 +103,15 @@ def slideshow(db, start, end):
         sys.exit()
 
 
+def downloadImage(imageUrl, localFileName):
+    response = requests.get(imageUrl)
+    if response.status_code == 200:
+        print('Downloading %s...' % (localFileName))
+        with open(localFileName, 'wb') as fo:
+            for chunk in response.iter_content(4096):
+                fo.write(chunk)
+
+
 def change_terminal_background(db, arg):
     # Change the terminal background to the specified Anime, if it exists.
     # if arg in db:
@@ -122,11 +133,39 @@ def change_terminal_background(db, arg):
     print(arg)
 
     #okay so this succesfully goes to a subreddit
-    for submission in reddit.subreddit(arg).top('week', limit=10):
-        print(submission.title)
+    # for submission in reddit.subreddit(arg).top('week', limit=10):
+    # for submission in reddit.subreddit(arg).hot(limit=10):
+        # print(submission.title)
+
+    # submissionA = reddit.subreddit(arg).random()
     # print(reddit.subreddit(arg).random())
-    # print(reddit.subreddit(arg).random().title)
-    # print(reddit.subreddit(arg).random().url)
+    # print(submissionA)
+    # print(submissionA.title)
+    # print(submissionA.url)
+
+    # well my idea is to generate a random number 1-100, get the hot 100 from a the inputted sub
+    # find that submission and grab the image, if not succesful, generate another number and try again? I guess?
+
+    # randnum = random.seed(time.time())
+
+    # print(randnum)
+
+    for submission in reddit.subreddit(arg).hot(limit=3):
+        print(submission.url)
+        if ('imgur.com' in submission.url):
+            if ('imgur.com/a/' in submission.url):
+                #it's an album, so skip
+                continue
+            elif ('jpg' in submission.url):
+                #download image right away
+                downloadImage(submission.url, 'downloadedPic.jpg')
+            else:
+                #append .jpg to the end of the url then download image
+                downloadImage(submission.url + '.jpg', 'downloadedPic.jpg')
+        else:
+            print('not imgur')
+        # print('imgur' in submission.url)
+        # print('redd' in submission.url)
 
 
 
