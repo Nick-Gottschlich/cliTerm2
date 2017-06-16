@@ -10,10 +10,11 @@ import time
 import praw
 import random
 import requests
+import os
 
 reddit = praw.Reddit(
-    client_id='UL0uO_5lz8bSeg',
-    client_secret='uG2Z5JZcqrSN-GVzcnjwGCuAolE',
+    client_id='BTwqpLqtP1t5qQ',
+    client_secret='p0kQUlqO-1vyDZCy877B1M8nL4Q',
     user_agent='mac:iterm2-background:v0.0.1 (by /u/JavaOffScript)'
 )
 
@@ -107,29 +108,48 @@ def downloadImage(imageUrl, localFileName):
     response = requests.get(imageUrl)
     if response.status_code == 200:
         print('Downloading %s...' % (localFileName))
-        with open(localFileName, 'wb') as fo:
+        with open(os.path.join(os.getcwd()+'/Images/Main', localFileName), 'wb') as fo:
             for chunk in response.iter_content(4096):
                 fo.write(chunk)
 
 
 def change_terminal_background(db, arg):
-    # Change the terminal background to the specified Anime, if it exists.
-    # if arg in db:
-    #     anime = db.get_anime(arg)
-    #     scripter.change_terminal(anime)
-    # else:  # If not found in the database, try to give suggestions.
-    #     suggestions = db.names_with_infix(arg)
-    #     if len(suggestions) == 0:
-    #         print("No such Anime was found and no suggestions are available.")
-    #     elif len(suggestions) == 1:
-    #         scripter.change_terminal(suggestions[0])
-    #         print("Did you mean " + suggestions[0].get_name().capitalize() + "?")
-    #         scripter.change_terminal(suggestions[0])
-    #     else:
-    #         print("Did you mean " + suggestions[0].get_name().capitalize() + "?")
-    #         print("Other suggestions:")
-    #         print_columns(suggestions[1:])
-    #         scripter.change_terminal(suggestions[0])
+    for submission in reddit.subreddit(arg).hot(limit=3):
+        print(submission.url)
+        if ('imgur.com' in submission.url):
+            if ('imgur.com/a/' in submission.url):
+                #it's an album, so skip
+                continue
+            elif ('jpg' in submission.url):
+                #download image right away
+                downloadImage(submission.url, 'downloadedPic.jpg')
+                break
+            else:
+                #append .jpg to the end of the url then download image
+                downloadImage(submission.url + '.jpg', 'downloadedPic.jpg')
+                break
+        else:
+            print('not imgur')
+        # print('imgur' in submission.url)
+        # print('redd' in submission.url)
+        #
+    # Change the terminal background to the specified image, if it exists.
+    if arg in db:
+        anime = db.get_anime(arg)
+        scripter.change_terminal(anime)
+    else:  # If not found in the database, try to give suggestions.
+        suggestions = db.names_with_infix(arg)
+        if len(suggestions) == 0:
+            print("No such Anime was found and no suggestions are available.")
+        elif len(suggestions) == 1:
+            scripter.change_terminal(suggestions[0])
+            print("Did you mean " + suggestions[0].get_name().capitalize() + "?")
+            scripter.change_terminal(suggestions[0])
+        else:
+            print("Did you mean " + suggestions[0].get_name().capitalize() + "?")
+            print("Other suggestions:")
+            print_columns(suggestions[1:])
+            scripter.change_terminal(suggestions[0])
     print(arg)
 
     #okay so this succesfully goes to a subreddit
@@ -149,23 +169,6 @@ def change_terminal_background(db, arg):
     # randnum = random.seed(time.time())
 
     # print(randnum)
-
-    for submission in reddit.subreddit(arg).hot(limit=3):
-        print(submission.url)
-        if ('imgur.com' in submission.url):
-            if ('imgur.com/a/' in submission.url):
-                #it's an album, so skip
-                continue
-            elif ('jpg' in submission.url):
-                #download image right away
-                downloadImage(submission.url, 'downloadedPic.jpg')
-            else:
-                #append .jpg to the end of the url then download image
-                downloadImage(submission.url + '.jpg', 'downloadedPic.jpg')
-        else:
-            print('not imgur')
-        # print('imgur' in submission.url)
-        # print('redd' in submission.url)
 
 
 
