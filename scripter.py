@@ -61,9 +61,9 @@ def __create_wallpaper_bash():
     file.close()
 
 
-def change_terminal(anime):
+def change_terminal():
     # Create, save and run the bash script to change the terminal background.
-    __create_terminal_script(anime)
+    # __create_terminal_script(anime)
     __create_terminal_bash()
     os.system(cwd + "/./Scripts/run.sh")
 

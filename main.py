@@ -123,34 +123,19 @@ def change_terminal_background(db, arg):
             elif ('jpg' in submission.url):
                 #download image right away
                 downloadImage(submission.url, 'downloadedPic.jpg')
+                scripter.change_terminal()
                 break
             else:
                 #append .jpg to the end of the url then download image
                 downloadImage(submission.url + '.jpg', 'downloadedPic.jpg')
+                scripter.change_terminal()
                 break
         else:
             print('not imgur')
         # print('imgur' in submission.url)
         # print('redd' in submission.url)
         #
-    # Change the terminal background to the specified image, if it exists.
-    if arg in db:
-        anime = db.get_anime(arg)
-        scripter.change_terminal(anime)
-    else:  # If not found in the database, try to give suggestions.
-        suggestions = db.names_with_infix(arg)
-        if len(suggestions) == 0:
-            print("No such Anime was found and no suggestions are available.")
-        elif len(suggestions) == 1:
-            scripter.change_terminal(suggestions[0])
-            print("Did you mean " + suggestions[0].get_name().capitalize() + "?")
-            scripter.change_terminal(suggestions[0])
-        else:
-            print("Did you mean " + suggestions[0].get_name().capitalize() + "?")
-            print("Other suggestions:")
-            print_columns(suggestions[1:])
-            scripter.change_terminal(suggestions[0])
-    print(arg)
+
 
     #okay so this succesfully goes to a subreddit
     # for submission in reddit.subreddit(arg).top('week', limit=10):
