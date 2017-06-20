@@ -36,7 +36,7 @@ def downloadImage(imageUrl, localFileName):
     response = requests.get(imageUrl)
     if response.status_code == 200:
         print('Downloading %s...' % (localFileName))
-        with open(os.path.join(os.getcwd()+'/Images', localFileName), 'wb') as fo:
+        with open('~/.cliTerm2/Images', localFileName), 'wb') as fo:
             for chunk in response.iter_content(4096):
                 fo.write(chunk)
 
