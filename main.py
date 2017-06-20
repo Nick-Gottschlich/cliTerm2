@@ -36,14 +36,14 @@ def downloadImage(imageUrl, localFileName):
     response = requests.get(imageUrl)
     if response.status_code == 200:
         print('Downloading %s...' % (localFileName))
-        with open('~/.cliTerm2/Images', localFileName), 'wb') as fo:
+        with open(os.path.join('~/.cliTerm2/Images', localFileName), 'wb') as fo:
             for chunk in response.iter_content(4096):
                 fo.write(chunk)
 
 
 def change_terminal_background(arg):
     #next step here is to just check submission.url to see if it ends in jpg, then check if it's a common image upload site like imgur
-    for submission in reddit.subreddit(arg).hot(limit=10):
+    for submission in reddit.subreddit(arg).hot(limit=3):
         print(submission.url)
         if ('imgur.com' in submission.url):
             if ('imgur.com/a/' in submission.url):
