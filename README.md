@@ -15,7 +15,7 @@ This project is under active development. The end goal is to have a nice way to 
 3. Copy and paste the following for the installation (you can use .zshrc instead of .bash_profile if that's your thing):
     ```
     # cliTerm2 Installation
-    git clone https://github.com/LazoCoder/Pokemon-Terminal $HOME/.cliTerm2
+    git clone https://github.com/Nick-Gottschlich/cliTerm2 $HOME/.cliTerm2
     echo PATH="$HOME/.cliTerm2:${PATH}" >> ~/.bash_profile
     source ~/.bash_profile
     ```

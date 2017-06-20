@@ -5,11 +5,11 @@ import os
 cwd = os.path.dirname(os.path.realpath(__file__))
 
 
-def __terminal_script(anime):
+def __terminal_script():
     # Create the content for script that will change the terminal background image.
     content = "tell application \"iTerm\"\n"
     content += "\ttell current session of current window\n"
-    content += "\t\tset background image to \"" + anime.get_path() + "\"\n"
+    content += "\t\tset background image to ~/.cliTerm2/Images/downloadedPic.jpg\n"
     content += "\tend tell\n"
     content += "end tell"
     return content
@@ -25,9 +25,9 @@ def __wallpaper_script(anime):
     return content
 
 
-def __create_terminal_script(anime):
+def __create_terminal_script():
     # Create and save the script for changing the terminal background image.
-    content = __terminal_script(anime)
+    content = __terminal_script()
     file = open(cwd + "/./Scripts/background.scpt", "wb")
     file.write(bytes(content, 'UTF-8'))
     file.close()
@@ -63,7 +63,7 @@ def __create_wallpaper_bash():
 
 def change_terminal():
     # Create, save and run the bash script to change the terminal background.
-    # __create_terminal_script(anime)
+    __create_terminal_script()
     __create_terminal_bash()
     os.system(cwd + "/./Scripts/run.sh")
 
