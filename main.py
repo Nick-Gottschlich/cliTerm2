@@ -24,10 +24,11 @@ def print_usage():
     print(
         '''
 Usage:
-    term-bg [parameter]
+    cliTerm2 [parameter]
 
 Parameters:
-    [subreddit]   -   Grab a random image from 'subreddit', and make it your terminal background.
+    cliTerm2 [subreddit]   -   Grab a random image from 'subreddit', and make it your terminal background.
+    cliTerm2 help          -   Display this help message.
 ''')
 
 
@@ -42,7 +43,7 @@ def downloadImage(imageUrl, localFileName):
 
 def change_terminal_background(arg):
     #next step here is to just check submission.url to see if it ends in jpg, then check if it's a common image upload site like imgur
-    for submission in reddit.subreddit(arg).hot(limit=3):
+    for submission in reddit.subreddit(arg).hot(limit=10):
         print(submission.url)
         if ('imgur.com' in submission.url):
             if ('imgur.com/a/' in submission.url):
