@@ -42,10 +42,10 @@ Making the font colors black and the terminal window transparent will help make 
 1. Navigate to iTerm2 > Preferenes > Profiles > colors
 2. Pick `Dark Background` from the color presets.
 3. Navigate to iTerm2 > Preferences > Profiles > Window
-4. Set the transparency to about half way.
+4. Set the transparency to about 1/8 to 1/4.
 5. Hit the "blur" checkbox.
 6. Set the blur to maximum.
-7. Optionally you can set the blending to maximum to adjust the colors to look like the samples provided.
+7. Optionally you can set the blending to maximum.
 
 ![alt-tag](Samples/transparency_setting.png)
 
