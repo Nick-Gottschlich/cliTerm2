@@ -57,4 +57,4 @@ If you experience a line at the top of the terminal after changing the backgroun
 
 # Notes & Credits
 
-- This project would not exist if not for the excellent [https://github.com/LazoCoder/Pokemon-Terminal](Pokemon-Terminal) project by LazoCoder. I forked their work as an way to begin making what I wanted to create, and would be totally lost without it.
+- This project would not exist if not for the excellent [Pokemon-Terminal](https://github.com/LazoCoder/Pokemon-Terminal) project by LazoCoder. I forked their work as an way to begin making what I wanted to create, and would be totally lost without it.
