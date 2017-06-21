@@ -10,6 +10,7 @@ import praw
 import random
 import requests
 import os
+import re
 
 
 reddit = praw.Reddit(
@@ -44,27 +45,30 @@ def downloadImage(imageUrl, localFileName):
 
 
 def change_terminal_background(arg):
-    #next step here is to just check submission.url to see if it ends in jpg, then check if it's a common image upload site like imgur
-    for submission in reddit.subreddit(arg).hot(limit=3):
-        print(submission.url)
-        if ('imgur.com' in submission.url):
+    #try 25 random submissions from the subreddit
+    for i in range(1, 25):
+    # for submission in reddit.subreddit(arg).hot(limit=10):
+        submission = reddit.subreddit(arg).random()
+        print('trying to download: ' + submission.url)
+        # the url ends in jpg, jpeg, or png, so we know we can download the image
+        if (re.search('(.jpg|.jpeg|.png)$', submission.url)):
+            # just force it to a jpg
+            downloadImage(submission.url, 'downloadedPic.jpg')
+            scripter.change_terminal()
+            break
+        #it didn't end in jpg, but it is on imgur
+        elif ('imgur.com' in submission.url):
             if ('imgur.com/a/' in submission.url):
                 #it's an album, so skip
                 continue
-            elif ('jpg' in submission.url):
-                #download image right away
-                downloadImage(submission.url, 'downloadedPic.jpg')
-                scripter.change_terminal()
-                break
             else:
                 #append .jpg to the end of the url then download image
                 downloadImage(submission.url + '.jpg', 'downloadedPic.jpg')
                 scripter.change_terminal()
                 break
-        else:
-            print('not imgur')
-        # print('imgur' in submission.url)
-        # print('redd' in submission.url)
+    if (i == 24):
+        print('Failed to retrieve an image, try again on a subreddit with more image posts.')
+
 
 
 def single_argument_handler(arg):
