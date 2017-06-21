@@ -41,7 +41,7 @@ Example:
 
 # Suggestions
 
-I highly suggest making the font colors black and the terminal window transparent. Some of the images have both light and dark colours and so it can be difficult to see the text sometimes. Transparency resolves this issue. Since *cliTerm2* only changes the background, the transparency must be done manually:
+Making the font colors black and the terminal window transparent will help make everything look better when you change your terminal's background. Since *cliTerm2* only changes the background, the transparency must be done manually:
 
 1. Navigate to iTerm2 > Preferences > Profiles > Window
 2. Set the transparency to about half way.
