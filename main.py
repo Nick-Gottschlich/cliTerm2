@@ -64,8 +64,11 @@ def change_terminal_background(arg):
             break
         #it didn't end in jpg, but it is on imgur
         elif ('imgur.com' in submission.url):
-            if ('imgur.com/a/' in submission.url):
+            if ('imgur.com/a/' in submission.url or 'imgur.com/gallery' in submission.url):
                 #it's an album, so skip
+                continue
+            elif (re.search('(.gif|.gifv)$', submission.url)):
+                #it's a gif, skip
                 continue
             else:
                 #append .jpg to the end of the url then download image
@@ -76,13 +79,13 @@ def change_terminal_background(arg):
         print('Failed to retrieve an image, try again on a subreddit with more image posts.')
 
 
-
 def single_argument_handler(arg):
     # Handle the logic for when there is only one command line parameter inputted.
 
     if arg == "help":
         print_usage()
     else:
+        print(arg)
         change_terminal_background(arg)
 
 
