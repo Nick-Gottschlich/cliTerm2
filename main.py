@@ -7,12 +7,12 @@ import scripter
 import sys
 import time
 import praw
-import random
 import requests
 import os
 import re
 
 
+# this is a reddit key for an account I made specifically for this project. Please don't get this account banned, you will make me sad :(
 reddit = praw.Reddit(
     client_id='BTwqpLqtP1t5qQ',
     client_secret='p0kQUlqO-1vyDZCy877B1M8nL4Q',
@@ -49,6 +49,12 @@ def change_terminal_background(arg):
     for i in range(1, 25):
     # for submission in reddit.subreddit(arg).hot(limit=10):
         submission = reddit.subreddit(arg).random()
+
+        # ensuring nobody gets fired
+        if submission.over_18:
+            "THIS IS NSFW WE ARE SKIPPING"
+            break
+
         print('trying to download: ' + submission.url)
         # the url ends in jpg, jpeg, or png, so we know we can download the image
         if (re.search('(.jpg|.jpeg|.png)$', submission.url)):

@@ -2,8 +2,6 @@
 
 import os
 
-# cwd = os.path.dirname(os.path.realpath(__file__))
-
 testPath = '/Users/nick.gottschlich/Code/Personal/cliTerm2/'
 
 def __terminal_script():
