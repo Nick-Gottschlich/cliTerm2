@@ -35,10 +35,6 @@ Parameters:
     cliTerm2 help          -   Display this help message.
 ```
 
-Example:
-
-![alt-tag](Samples/usage.gif)
-
 # Suggestions
 
 Making the font colors black and the terminal window transparent will help make everything look better when you change your terminal's background. Since *cliTerm2* only changes the background, the transparency must be done manually:
