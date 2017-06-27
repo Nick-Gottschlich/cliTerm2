@@ -6,7 +6,7 @@ This project is under active development. The end goal is to have a nice way to 
 
 # Features
 
-- Does neat things
+* Right now all this does is fetch a random submission from the subreddit of your choice and sets it as your terminal background. Try it with `cliTerm2 earthporn` or `cliTerm2 minimalwallpaper`.
 
 # How to Install
 

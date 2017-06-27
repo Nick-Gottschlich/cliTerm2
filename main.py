@@ -16,7 +16,7 @@ import re
 reddit = praw.Reddit(
     client_id='BTwqpLqtP1t5qQ',
     client_secret='p0kQUlqO-1vyDZCy877B1M8nL4Q',
-    user_agent='mac:iterm2-background:v0.0.1 (by /u/JavaOffScript)'
+    user_agent='cliTerm2 (by /u/JavaOffScript)'
 )
 
 
@@ -45,15 +45,12 @@ def downloadImage(imageUrl, localFileName):
 
 
 def change_terminal_background(arg):
-    #try 25 random submissions from the subreddit
-    for i in range(1, 25):
-    # for submission in reddit.subreddit(arg).hot(limit=10):
-        submission = reddit.subreddit(arg).random()
+    for submission in reddit.subreddit(arg).random_rising(limit=25):
 
         # ensuring nobody gets fired
         if submission.over_18:
-            "THIS IS NSFW WE ARE SKIPPING"
-            break
+            print("THIS IS NSFW WE ARE SKIPPIN")
+            continue
 
         print('trying to download: ' + submission.url)
         # the url ends in jpg, jpeg, or png, so we know we can download the image
@@ -75,8 +72,6 @@ def change_terminal_background(arg):
                 downloadImage(submission.url + '.jpg', 'downloadedPic.jpg')
                 scripter.change_terminal()
                 break
-    if (i == 24):
-        print('Failed to retrieve an image, try again on a subreddit with more image posts.')
 
 
 def single_argument_handler(arg):
