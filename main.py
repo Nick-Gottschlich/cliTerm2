@@ -20,16 +20,16 @@ reddit = praw.Reddit(
 )
 
 
-def print_usage():
+def printHelp():
     # Print the instructions of usage.
     print(
         '''
 Usage:
-    cliTerm2 [parameter]
+    cliTerm2 [parameter1] [parameter2]
 
 Parameters:
-    cliTerm2 [subreddit]   -   Grab a random image from 'subreddit', and make it your terminal background.
-    cliTerm2 help          -   Display this help message.
+    cliTerm2 reddit [subreddit]   -   Grab a random image from 'subreddit', and make it your terminal background.
+    cliTerm2 help                 -   Display this help message.
 ''')
 
 
@@ -44,7 +44,7 @@ def downloadImage(imageUrl, localFileName):
                 fo.write(chunk)
 
 
-def change_terminal_background(arg):
+def redditTerminalBackground(arg):
     for submission in reddit.subreddit(arg).random_rising(limit=25):
 
         # ensuring nobody gets fired
@@ -74,14 +74,19 @@ def change_terminal_background(arg):
                 break
 
 
-def single_argument_handler(arg):
-    # Handle the logic for when there is only one command line parameter inputted.
+def setTextColor(arg):
+    
 
-    if arg == "help":
-        print_usage()
+
+def argumentHandler(args):
+    if args[1] == "help":
+        printHelp()
+    elif args[1] == 'reddit':
+        redditTerminalBackground(args[2])
+    elif args[1] == 'textcolor':
+        setTextColor(args[2])
     else:
-        print(arg)
-        change_terminal_background(arg)
+        print('Unrecognized argument, try "cliterm2 help"')
 
 
 if __name__ == "__main__":
@@ -90,7 +95,5 @@ if __name__ == "__main__":
         print("No command line arguments specified."
               "\nTry inputting in a subreddit with image posts."
               "\nOr type \"help\" to see all the commands.")
-    elif len(argv) == 2:
-        single_argument_handler(argv[1].lower())
     else:
-        print("Only one command line argument is supported.")
+        argumentHandler(argv)
