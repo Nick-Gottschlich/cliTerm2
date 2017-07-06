@@ -8,6 +8,7 @@ def __terminal_script():
     # Create the content for script that will change the terminal background image.
     content = "tell application \"iTerm\"\n"
     content += "\ttell current session of current window\n"
+    content += "\t\tset background color to {0, 0, 0, 1}\n"
     content += "\t\tset background image to \"/Users/nick.gottschlich/Code/Personal/cliTerm2/./Images/downloadedPic.jpg\"\n"
     # content += "\t\tset background image to ~/.cliTerm2/Images/downloadedPic.jpg\n"
     content += "\tend tell\n"
