@@ -10,16 +10,17 @@ This project is under active development. The end goal is to have a nice way to 
 
 # How to Install
 
-1. Make sure you have [Python 3.5](https://www.python.org/downloads/mac-osx/) or higher.
-2. Make sure you have [iTerm2](http://www.iterm2.com/downloads.html).
-3. Copy and paste the following for the installation (you can use .zshrc instead of .bash_profile if that's your thing):
+* Make sure you have [Python 3.5](https://www.python.org/downloads/mac-osx/) or higher.
+* Make sure you have [iTerm2](http://www.iterm2.com/downloads.html).
+* `pip3 install praw` (this will let you connect to the reddits)
+* Copy and paste the following for the installation (you can use .zshrc instead of .bash_profile if that's your thing):
     ```
     # cliTerm2 Installation
     git clone https://github.com/Nick-Gottschlich/cliTerm2 $HOME/.cliTerm2
     echo PATH="$HOME/.cliTerm2:${PATH}" >> ~/.bash_profile
     source ~/.bash_profile
     ```
-4. Now you can change the terminal background like so:
+* Now you can change the terminal background like so:
     ```
     $ cliTerm2 earthporn
     ```

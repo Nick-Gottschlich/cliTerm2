@@ -74,8 +74,8 @@ def redditTerminalBackground(arg):
                 break
 
 
-def setTextColor(arg):
-    
+# def setTextColor(arg):
+
 
 
 def argumentHandler(args):
