@@ -20,9 +20,9 @@ This project is under active development. The end goal is to have a nice way to 
     echo PATH="$HOME/.cliTerm2:${PATH}" >> ~/.bash_profile
     source ~/.bash_profile
     ```
-* Now you can change the terminal background like so:
+* Now type this to see what you can do:
     ```
-    $ cliTerm2 earthporn
+    $ cliTerm2 help
     ```
 
 # Usage
